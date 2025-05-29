@@ -396,7 +396,7 @@ def fetch_payments():
     Recupera todos los pagos registrados, junto con el nombre del alumno.
 
     Returns:
-        list of tuples: [(pago_id, nombre_alumno, cantidad, fecha, método, notas), ...]
+        list of tuples: [(pago_id, nombre_alumno, cantidad, fecha, métod, notas), ...]
     """
     conn = connect_db()
     cursor = conn.cursor()
@@ -419,7 +419,7 @@ def update_payment(payment_id, amount, date, method=None, notes=None):
         payment_id (int): ID del pago a actualizar.
         amount (float): Nueva cantidad pagada.
         date (str): Nueva fecha del pago.
-        method (str, optional): Nuevo método de pago.
+        method (str, optional): Nuevo métod de pago.
         notes (str, optional): Nuevas observaciones.
     """
     conn = connect_db()
