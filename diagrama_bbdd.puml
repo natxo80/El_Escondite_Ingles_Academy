@@ -1,0 +1,68 @@
+@startuml
+!theme mars
+
+title Esquema de Base de Datos - El Escondite Inglés
+
+entity "users" {
+    *id : INTEGER <<PK>>
+    --
+    username : TEXT NOT NULL
+    password : TEXT NOT NULL
+    role : TEXT NOT NULL
+}
+
+entity "students" {
+    *id : INTEGER <<PK>>
+    --
+    name : TEXT NOT NULL
+    age : INTEGER NOT NULL
+    level : TEXT NOT NULL
+    --
+    user_id : INTEGER <<FK>>
+}
+
+entity "levels" {
+    *id : INTEGER <<PK>> <<AUTOINCREMENT>>
+    --
+    name : TEXT NOT NULL UNIQUE
+}
+
+entity "classes" {
+    *id : INTEGER <<PK>>
+    --
+    name : TEXT NOT NULL
+    date : TEXT NOT NULL
+    professor : TEXT NOT NULL
+}
+
+entity "payments" {
+    *id : INTEGER <<PK>> <<AUTOINCREMENT>>
+    --
+    amount : REAL NOT NULL
+    date : TEXT NOT NULL
+    method : TEXT
+    notes : TEXT
+    --
+    student_id : INTEGER <<FK>>
+}
+
+entity "rewards" {
+    *id : INTEGER <<PK>> <<AUTOINCREMENT>>
+    --
+    reward_name : TEXT NOT NULL
+    months_rewarded : INTEGER NOT NULL
+    date_awarded : TEXT NOT NULL
+    --
+    recommender_id : INTEGER <<FK>>
+    new_student_id : INTEGER <<FK>>
+}
+
+' Relaciones
+users "1" -- "0..N" students : user_id
+students "1" -- "0..N" payments : student_id
+students "1" -- "0..N" rewards : recommender_id
+students "1" -- "0..N" rewards : new_student_id
+' Asumo que "level" en students hace referencia al nombre de un nivel en la tabla levels
+levels "1" -- "0..N" students : level (by name)
+
+@enduml

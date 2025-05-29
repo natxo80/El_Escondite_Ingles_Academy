@@ -1,0 +1,53 @@
+@startuml
+!theme mars
+
+title Flujo de Navegación de la Aplicación
+
+start
+
+:Abrir Aplicación;
+
+if (Credenciales válidas?) then (Sí)
+  :Abrir Ventana Principal (MainWindow);
+else (No)
+  :Mostrar Error de Login;
+  :Volver a LoginWindow;
+  stop
+endif
+
+partition "MainWindow - Opciones Principales" {
+  fork
+    :Gestionar Alumnos;
+  fork again
+    :Gestionar Clases;
+  fork again
+    :Gestionar Niveles;
+  fork again
+    :Gestionar Pagos;
+  fork again
+    :Gestionar Recompensas;
+  fork again
+    :Gestionar Usuarios (Solo Admin);
+  fork again
+    :Realizar Copia de Seguridad;
+  fork again
+    :Restaurar Copia de Seguridad;
+  fork again
+    :Cerrar Sesión;
+    :Volver a LoginWindow;
+    stop
+  end fork
+}
+
+note right
+  Cada ventana de gestión permite CRUD,
+  tiene un botón para volver,
+  o se cierra automáticamente al completar.
+end note
+
+:Realizar Acciones en Ventana de Gestión;
+:Cerrar Ventana de Gestión;
+:Volver a Ventana Principal (MainWindow);
+
+end
+@enduml

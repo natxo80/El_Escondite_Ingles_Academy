@@ -1,0 +1,268 @@
+@startuml
+!theme mars
+
+title Diagrama de Clases - El Escondite Inglés
+
+class LoginWindow extends QWidget {
+    - username_input: QLineEdit
+    - password_input: QLineEdit
+    - login_button: QPushButton
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - main_window: MainWindow
+    + __init__()
+    + authenticate()
+    + check_credentials(username: str, password: str): tuple or None
+}
+
+class MainWindow extends QMainWindow {
+    - username: str
+    - role: str
+    - central_widget: QWidget
+    - layout: QVBoxLayout
+    - students_button: QPushButton
+    - classes_button: QPushButton
+    - manage_levels_button: QPushButton
+    - payments_button: QPushButton
+    - rewards_button: QPushButton
+    - backup_button: QPushButton
+    - restore_button: QPushButton
+    - users_button: QPushButton
+    - logout_button: QPushButton
+    - manage_students_window: ManageStudentsWindow
+    - manage_classes_window: ManageClassesWindow
+    - manage_levels_window: ManageLevelsWindow
+    - manage_payments_window: ManagePaymentsWindow
+    - manage_rewards_window: ManageRewardsWindow
+    - manage_users_window: ManageUsersWindow
+    - login_window: LoginWindow
+    + __init__(username: str = None, role: str = "user")
+    + init_ui()
+    + manage_students()
+    + manage_classes()
+    + manage_levels()
+    + manage_payments()
+    + manage_rewards()
+    + backup_database()
+    + restore_database()
+    + manage_users()
+    + logout()
+    + open_login_window()
+}
+
+class ManageClassesWindow extends QWidget {
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - table: QTableWidget
+    - name_input: QLineEdit
+    - date_input: QLineEdit
+    - professor_input: QLineEdit
+    - add_button: QPushButton
+    - edit_button: QPushButton
+    - delete_button: QPushButton
+    + __init__()
+    + init_ui()
+    + load_classes()
+    + add_class()
+    + edit_class()
+    + delete_class()
+    + clear_fields()
+}
+
+class ManageLevelsWindow extends QWidget {
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - table: QTableWidget
+    - level_input: QLineEdit
+    - add_button: QPushButton
+    - edit_button: QPushButton
+    - delete_button: QPushButton
+    + __init__()
+    + init_ui()
+    + load_levels()
+    + add_level()
+    + delete_level()
+    + edit_level()
+}
+
+class ManagePaymentsWindow extends QWidget {
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - search_student_input: QLineEdit
+    - search_notes_input: QLineEdit
+    - table: QTableWidget
+    - student_combo: QComboBox
+    - amount_input: QLineEdit
+    - date_input: QLineEdit
+    - method_input: QLineEdit
+    - notes_input: QLineEdit
+    - add_button: QPushButton
+    - edit_button: QPushButton
+    - delete_button: QPushButton
+    - export_csv_button: QPushButton
+    - export_excel_button: QPushButton
+    + __init__()
+    + init_ui()
+    + clear_filters()
+    + load_students()
+    + load_payments()
+    + add_payment()
+    + edit_payment()
+    + delete_payment()
+    + clear_fields()
+    + export_to_csv()
+    + export_to_excel()
+}
+
+class ManageRewardsWindow extends QWidget {
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - search_recommender: QLineEdit
+    - search_new_student: QLineEdit
+    - search_reward_name: QLineEdit
+    - table: QTableWidget
+    - recommender_combo: QComboBox
+    - new_student_combo: QComboBox
+    - months_input: QLineEdit
+    - date_input: QLineEdit
+    - add_button: QPushButton
+    - delete_button: QPushButton
+    - export_csv_button: QPushButton
+    - export_excel_button: QPushButton
+    + __init__()
+    + init_ui()
+    + load_students()
+    + load_rewards()
+    + add_reward()
+    + delete_reward()
+    + clear_filters()
+    + show_expiring_alerts()
+    + export_to_csv()
+    + export_to_excel()
+}
+
+class ManageStudentsWindow extends QWidget {
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - search_input: QLineEdit
+    - clear_search_button: QPushButton
+    - table: QTableWidget
+    - name_input: QLineEdit
+    - age_input: QLineEdit
+    - level_combo: QComboBox
+    - add_button: QPushButton
+    - edit_button: QPushButton
+    - delete_button: QPushButton
+    - export_csv_button: QPushButton
+    - export_excel_button: QPushButton
+    + __init__()
+    + init_ui()
+    + clear_search()
+    + load_levels_into_combo()
+    + load_students(filter_text: str = "")
+    + add_student()
+    + edit_student()
+    + delete_student()
+    + filter_students()
+    + export_to_csv()
+    + export_to_excel()
+}
+
+class ManageUsersWindow extends QWidget {
+    - layout: QVBoxLayout
+    - logo: QLabel
+    - table: QTableWidget
+    - username_input: QLineEdit
+    - password_input: QLineEdit
+    - role_combo: QComboBox
+    - add_button: QPushButton
+    - edit_button: QPushButton
+    - delete_button: QPushButton
+    + __init__()
+    + init_ui()
+    + load_users()
+    + add_user()
+    + edit_user()
+    + delete_user()
+}
+
+package "db" {
+    class database {
+        + connect_db(): sqlite3.Connection
+        + create_tables()
+        + insert_user(username: str, password: str, role: str)
+        + fetch_users(): list
+        + update_user(user_id: int, new_username: str, new_role: str)
+        + delete_user(username: str)
+        + insert_student(name: str, age: int, level: str, user_id: int = None)
+        + delete_student(name: str)
+        + update_student(old_name: str, new_name: str, new_age: int, new_level: str)
+        + fetch_students(): list
+        + get_students(): list
+        + init_levels()
+        + fetch_levels(): list
+        + insert_level(level_name: str)
+        + delete_level(level_name: str)
+        + update_level(old_name: str, new_name: str)
+        + insert_class(name: str, date: str, professor: str)
+        + fetch_classes(): list
+        + update_class(old_name: str, new_name: str, new_date: str, new_professor: str)
+        + delete_class(name: str)
+        + insert_payment(student_id: int, amount: float, date: str, method: str = None, notes: str = None)
+        + fetch_payments(): list
+        + update_payment(payment_id: int, amount: float, date: str, method: str = None, notes: str = None)
+        + delete_payment(payment_id: int)
+        + insert_reward(recommender_id: int, new_student_id: int, months_rewarded: int, date_awarded: str)
+        + delete_reward(recommender_name: str, new_student_name: str)
+        + fetch_rewards(): list
+        + reward_already_granted(new_student_id: int): bool
+        + is_student_under_bonus(student_id: int): bool
+        + get_students_with_expiring_bonus(): list
+    }
+}
+
+class main {
+    + QApplication: PySide2.QtWidgets.QApplication
+    + login_window: LoginWindow
+    + main()
+}
+
+' Relaciones de Creación / Apertura de Ventanas
+LoginWindow "1" -- "1" MainWindow : crea >
+MainWindow "1" -- "1" LoginWindow : abre >
+MainWindow "1" -- "1" ManageStudentsWindow : abre >
+MainWindow "1" -- "1" ManageClassesWindow : abre >
+MainWindow "1" -- "1" ManageLevelsWindow : abre >
+MainWindow "1" -- "1" ManagePaymentsWindow : abre >
+MainWindow "1" -- "1" ManageRewardsWindow : abre >
+MainWindow "1" -- "1" ManageUsersWindow : abre >
+
+' Relación del punto de entrada (main)
+main "1" -- "1" LoginWindow : inicializa y muestra >
+
+' Dependencias de clases de UI con la base de datos
+ManageClassesWindow "1" ..> "1" database : usa (insert_class, fetch_classes, update_class, delete_class)
+ManageLevelsWindow "1" ..> "1" database : usa (fetch_levels, insert_level, delete_level, update_level)
+ManagePaymentsWindow "1" ..> "1" database : usa (fetch_payments, insert_payment, update_payment, delete_payment, fetch_students, is_student_under_bonus)
+ManageRewardsWindow "1" ..> "1" database : usa (fetch_rewards, fetch_students, insert_reward, reward_already_granted, get_students_with_expiring_bonus, delete_reward)
+ManageStudentsWindow "1" ..> "1" database : usa (insert_student, fetch_students, delete_student, update_student, fetch_levels)
+ManageUsersWindow "1" ..> "1" database : usa (fetch_users, insert_user, delete_user, update_user)
+LoginWindow "1" ..> "1" database : usa (check_credentials)
+
+' Dependencias del main con la base de datos
+main "1" ..> "1" database : usa (create_tables, init_levels)
+
+' Dependencias con librerías externas (solo las principales mencionadas en imports)
+ManagePaymentsWindow "1" ..> "1" csv : usa
+ManagePaymentsWindow "1" ..> "1" openpyxl : usa
+ManageRewardsWindow "1" ..> "1" csv : usa
+ManageRewardsWindow "1" ..> "1" openpyxl : usa
+ManageRewardsWindow "1" ..> "1" datetime : usa
+ManageStudentsWindow "1" ..> "1" csv : usa
+ManageStudentsWindow "1" ..> "1" openpyxl : usa
+database "1" ..> "1" sqlite3 : usa
+database "1" ..> "1" datetime : usa
+database "1" ..> "1" dateutil.relativedelta : usa
+main "1" ..> "1" sys : usa
+
+@enduml

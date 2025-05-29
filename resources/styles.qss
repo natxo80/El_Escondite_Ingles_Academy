@@ -1,0 +1,77 @@
+/* Colores base */
+* {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 14px;
+}
+
+QWidget {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+/* Botones */
+QPushButton {
+    background-color: #6a0dad; /* Morado */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    background-color: #8531d3;
+}
+
+QPushButton:pressed {
+    background-color: #4b0074;
+}
+
+/* Campos de texto */
+QLineEdit, QComboBox {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+QLineEdit:focus, QComboBox:focus {
+    border: 1px solid #6a0dad;
+    background-color: #ffffff;
+}
+
+/* Tabla */
+QTableWidget {
+    background-color: #ffffff;
+    alternate-background-color: #f9f9f9;
+    border: 1px solid #cccccc;
+}
+
+QHeaderView::section {
+    background-color: #6a0dad;
+    color: white;
+    padding: 4px;
+    border: none;
+}
+
+QTableWidget::item:selected {
+    background-color: #b0f2b6;  /* Verde claro */
+    color: #000000;
+}
+
+/* Mensajes */
+QMessageBox {
+    background-color: #ffffff;
+}
+
+/* Scrollbars */
+QScrollBar:vertical, QScrollBar:horizontal {
+    background: #f0f0f0;
+    border: none;
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {
+    background: #6a0dad;
+    border-radius: 5px;
+}

@@ -1,0 +1,68 @@
+@startuml
+!theme mars
+
+title Diagrama Entidad-Relación (ERD) - El Escondite Inglés
+
+skinparam linetype ortho
+
+entity "Usuario" as User {
+    * id
+    --
+    username
+    role
+}
+
+entity "Estudiante" as Student {
+    * id
+    --
+    nombre
+    edad
+    nivel
+    --
+    <<FK>> user_id
+}
+
+entity "Nivel" as Level {
+    * id
+    --
+    nombre_nivel
+}
+
+entity "Clase" as Class {
+    * id
+    --
+    nombre
+    fecha
+    profesor
+}
+
+entity "Pago" as Payment {
+    * id
+    --
+    cantidad
+    fecha
+    metodo
+    notas
+    --
+    <<FK>> estudiante_id
+}
+
+entity "Recompensa" as Reward {
+    * id
+    --
+    nombre_recompensa
+    meses_recompensa
+    fecha_otorgada
+    --
+    <<FK>> recomendador_id
+    <<FK>> nuevo_estudiante_id
+}
+
+' Relaciones
+User ||--o{ Student : "1" tiene "0..N"
+Student ||--o{ Payment : "1" realiza "0..N"
+Student ||--o{ Reward : "1" recomienda "0..N"
+Student }o--|| Reward : "1" es recomendado "1"
+Level ||--o{ Student : "1" define "0..N"
+
+@enduml
