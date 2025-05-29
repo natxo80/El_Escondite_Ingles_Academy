@@ -72,6 +72,10 @@ Proyecto/
 │   ├── manage_students_window.py 
 │   └── manage_users_window.py
 │
+├── diagrama_bbdd.puml
+├── diagrama_clases.puml
+├── diagrama_e_r.puml
+├── diagrama_flujo.puml
 ├── init_db.py               # Script para inicializar la base de datos con usuario admin
 ├── main.py
 ├── pytest.ini
@@ -113,8 +117,8 @@ Base de datos SQLite local con las siguientes tablas principales:
 1. Clona el repositorio:
 
    ```bash
-   git clone https://github.com/tu_usuario/academia-ingles.git
-   cd academia-ingles
+   git clone https://github.com/natxo80/El_Escondite_Ingles_Academy
+   cd El_Escondite_Ingles_Academy
    ```
 
 2. Crea un entorno virtual e instálalo todo:
@@ -154,12 +158,21 @@ Para ejecutarlas:
 
 ## Capturas de pantalla (opcional)
 
-> Puedes insertar aquí imágenes de la interfaz con la sintaxis:
+![Ventana Principal](resources/01_login.jpg)
 
-```markdown
-![Ventana Principal](resources/main_window.png)
-```
+![Menú Principal](resources/02_Main.jpg)
 
+![Menú Studiantes](resources/03_Students.jpg)
+
+![Menú Clases](resources/04_Classes.jpg)
+
+![Menú Niveles](resources/05_Levels.jpg)
+
+![Menú Pagos](resources/06_Payments.jpg)
+
+![Menú Recompensas](resources/07_Rewards.jpg)
+
+![Menú Usuarios](resources/08_Users.jpg)
 ---
 
 ## Licencia
