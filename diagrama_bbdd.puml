@@ -62,7 +62,6 @@ users "1" -- "0..N" students : user_id
 students "1" -- "0..N" payments : student_id
 students "1" -- "0..N" rewards : recommender_id
 students "1" -- "0..N" rewards : new_student_id
-' Asumo que "level" en students hace referencia al nombre de un nivel en la tabla levels
 levels "1" -- "0..N" students : level (by name)
 
 @enduml
